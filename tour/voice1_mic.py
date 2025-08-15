@@ -1,3 +1,12 @@
+
+# This code demonstrates the following functionalities:  
+
+# 1. Enumerate microphone and playback devices  
+# 2. Open the microphone for recording and capture audio data  
+# 3. Play a WAV file  
+# 4. Save the recorded audio data to a WAV file upon exit
+
+
 from __future__ import annotations
 
 import sounddevice as sd
@@ -55,7 +64,10 @@ def enum_devices():
     # print device info
     for i, info in enumerate(device_info):
         
+
         print(f"Device {i}: {info['name']}, Default samplerate: {info.get('default_samplerate')}")
+
+        # Device with AEC capability
         if info['name'].find('ReSpeaker') != -1:
             device_id = i
             device_id_spk = i
@@ -63,6 +75,7 @@ def enum_devices():
             mic_channels = 6
             play_sample_rate = 16000
 
+        # Device with AEC capability
         if info['name'].find('Yundea') != -1:
             device_id = i
             device_id_spk = i
@@ -70,6 +83,7 @@ def enum_devices():
             mic_channels = 1
             play_sample_rate = 48000
 
+        # Mac does not support AEC
         # MacBook Pro mic
         if info['name'].find('MacBook Pro麦克风') != -1:
             device_id = i
